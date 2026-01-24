@@ -1,7 +1,7 @@
 const fetch = globalThis.fetch;
 
 async function testBackend() {
-    console.log("🚀 Testing Backend API at http://localhost:3000/api/decision...");
+    console.log(" Testing Backend API at http://localhost:3000/api/decision...");
 
     const payload = {
         answers: [
@@ -11,7 +11,7 @@ async function testBackend() {
         ]
     };
 
-    console.log("📤 Sending Payload:", JSON.stringify(payload, null, 2));
+    console.log(" Sending Payload:", JSON.stringify(payload, null, 2));
 
     try {
         const response = await fetch("http://localhost:3000/api/decision", {
@@ -21,22 +21,22 @@ async function testBackend() {
         });
 
         const status = response.status;
-        console.log(`\n📡 Status Code: ${status}`);
+        console.log(`\n Status Code: ${status}`);
 
         if (status === 200) {
             const data = await response.json();
-            console.log("✅ Success! AI Decision Received:");
+            console.log(" Success! AI Decision Received:");
             console.log("---------------------------------------------------");
             console.log(`SESSION ID: ${data.sessionId}`);
             console.log(`DECISION:   ${data.decision}`);
             console.log("---------------------------------------------------");
         } else {
             const errorText = await response.text();
-            console.error("❌ Error Response:", errorText);
+            console.error(" Error Response:", errorText);
         }
 
     } catch (error) {
-        console.error("❌ Failed to connect to backend. Is 'npm run dev' running on port 3000?");
+        console.error(" Failed to connect to backend. Is 'npm run dev' running on port 3000?");
         console.error(error);
     }
 }

@@ -5,12 +5,13 @@ import LightRays from '@/components/LightRays';
 import IntroAnimation from '@/components/IntroAnimation';
 import { AnimatePresence, motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import LoginInterface from '@/components/LoginInterface';
 
 const BackgroundAudio = dynamic(() => import('@/components/BackgroundAudio'), { ssr: false });
 
 const QUESTIONS = [
   "What is the single biggest thing weighing on your mind right now?",
-  "If you could only do one thing today to make tomorrow better, what would it be?",
+  "If you could only do one thing in today to make tomorrow better, what would it be?",
   "What is the worst-case scenario if you do nothing?",
   "How much energy do you realistically have (1-10)?",
   "Is there a deadline involved? If so, when?"
@@ -21,6 +22,7 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(QUESTIONS.length).fill(""));
   const [showIntro, setShowIntro] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
   // Skip intro if decision already exists (e.g. from local storage/session)
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans flex flex-col items-center justify-center p-6 bg-radial-gradient relative overflow-hidden">
-      <BackgroundAudio url="https://youtu.be/ZQkBmCJG9i8?si=hhrBi7RxqFK8NM1M" />
+      <BackgroundAudio url="https://www.youtube.com/live/33oamxiVGZ4?si=RVRtjj8347mPy4Ui" />
       <div className="fixed inset-0 z-0">
         <LightRays
           raysOrigin="top-center"
@@ -77,7 +79,21 @@ export default function Home() {
             exit={{ opacity: 0, transition: { duration: 1 } }}
             className="relative z-50"
           >
-            <IntroAnimation onComplete={() => setShowIntro(false)} />
+            <IntroAnimation onComplete={() => {
+              setShowIntro(false);
+              setShowLogin(true);
+            }} />
+          </motion.div>
+        ) : showLogin ? (
+          <motion.div
+            key="login"
+            initial={{ opacity: 0, filter: 'blur(20px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.8 } }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="w-full h-full flex items-center justify-center relative z-50"
+          >
+            <LoginInterface onLoginComplete={() => setShowLogin(false)} />
           </motion.div>
         ) : (
           <motion.main
