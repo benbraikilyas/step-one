@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useDecision } from '@/hooks/useDecision';
 import Head from 'next/head';
@@ -18,18 +19,20 @@ const QUESTIONS = [
 ];
 
 export default function Home() {
+  const { data: session, status } = useSession();
   const { decision, loading, error, submitAnswers } = useDecision();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(QUESTIONS.length).fill(""));
   const [showIntro, setShowIntro] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
 
-  // Skip intro if decision already exists (e.g. from local storage/session)
+  // Skip intro if decision already exists or user is logged in
   useEffect(() => {
-    if (decision) {
+    if (decision || status === 'authenticated') {
       setShowIntro(false);
+      setShowLogin(false);
     }
-  }, [decision]);
+  }, [decision, status]);
 
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newAnswers = [...answers];
@@ -68,9 +71,12 @@ export default function Home() {
         />
       </div>
       <Head>
-        <title>Decision Recovery Platform</title>
+        <title>one step </title>
+
         <meta name="description" content="One decision per day." />
       </Head>
+
+
 
       <AnimatePresence mode="wait">
         {showIntro ? (
@@ -85,6 +91,7 @@ export default function Home() {
             }} />
           </motion.div>
         ) : showLogin ? (
+
           <motion.div
             key="login"
             initial={{ opacity: 0, filter: 'blur(20px)' }}

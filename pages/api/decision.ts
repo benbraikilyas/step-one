@@ -18,7 +18,11 @@ export default async function handler(
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    await dbConnect();
+    try {
+        await dbConnect();
+    } catch (e) {
+        console.warn("⚠️ Initial DB connection failed (Dev Mode). Proceeding...");
+    }
 
     try {
         const { answers, sessionId: clientSessionId } = req.body;
@@ -29,17 +33,22 @@ export default async function handler(
 
         // Rate Limiting / Session Check
         let sessionId = clientSessionId;
-        if (sessionId) {
-            const existingSession = await DecisionSession.findOne({ sessionId });
-            if (existingSession) {
-                // If a decision was made less than 24 hours ago, return it (or block)
-                // For this hackathon, we simply return the previous decision if it exists
-                return res.status(200).json({
-                    decision: existingSession.generatedDecision,
-                    sessionId: existingSession.sessionId
-                });
+
+        try {
+            if (sessionId) {
+                const existingSession = await DecisionSession.findOne({ sessionId });
+                if (existingSession) {
+                    return res.status(200).json({
+                        decision: existingSession.generatedDecision,
+                        sessionId: existingSession.sessionId
+                    });
+                }
             }
-        } else {
+        } catch (dbError) {
+            console.warn("⚠️ Database check failed (Dev Mode). Skipping session check.");
+        }
+
+        if (!sessionId) {
             sessionId = uuidv4();
         }
 
@@ -47,11 +56,15 @@ export default async function handler(
         const decision = await generateDecision(answers);
 
         // Persist
-        await DecisionSession.create({
-            sessionId,
-            answers,
-            generatedDecision: decision,
-        });
+        try {
+            await DecisionSession.create({
+                sessionId,
+                answers,
+                generatedDecision: decision,
+            });
+        } catch (dbError) {
+            console.warn("⚠️ Database save failed (Dev Mode). Returning decision without persistence.");
+        }
 
         return res.status(200).json({ decision, sessionId });
 

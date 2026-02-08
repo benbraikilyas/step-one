@@ -138,17 +138,13 @@ export default function LoginInterface({ onLoginComplete }: LoginInterfaceProps)
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="flex justify-center">
                         <button
                             onClick={handleGoogleSignIn}
-                            className="flex items-center justify-center gap-2 bg-black/20 hover:bg-black/40 border border-white/5 hover:border-white/10 py-2.5 rounded-xl transition-all group"
+                            className="flex items-center justify-center gap-2 bg-black/20 hover:bg-black/40 border border-white/5 hover:border-white/10 py-2.5 rounded-xl transition-all group w-full"
                         >
                             <FcGoogle className="w-5 h-5 group-hover:scale-110 transition-transform" />
                             <span className="text-sm text-zinc-400 group-hover:text-zinc-200">Google</span>
-                        </button>
-                        <button className="flex items-center justify-center gap-2 bg-black/20 hover:bg-black/40 border border-white/5 hover:border-white/10 py-2.5 rounded-xl transition-all group">
-                            <FaApple className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
-                            <span className="text-sm text-zinc-400 group-hover:text-zinc-200">Apple</span>
                         </button>
                     </div>
                 </div>

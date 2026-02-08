@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async signIn({ user, account, profile }) {
+        async signIn({ user, account }) {
             if (account?.provider === "google") {
                 try {
                     await dbConnect();
@@ -20,34 +20,32 @@ export const authOptions: NextAuthOptions = {
                     const existingUser = await User.findOne({ email: user.email });
 
                     if (!existingUser) {
-                        // New User: Create and Send Email
-                        await User.create({
+                        const newUser = new User({
                             name: user.name,
                             email: user.email,
                             image: user.image,
-                            provider: 'google',
+                            provider: "google",
                         });
 
-                        console.log(`🆕 New User Created: ${user.email}`);
+                        await newUser.save();
 
-                        // Send Welcome Email
+                        console.log(" New User Created: ${user.email}");
+
                         if (user.email && user.name) {
                             await sendWelcomeEmail(user.email, user.name);
                         }
                     } else {
-                        console.log(`👋 Existing User Logged In: ${user.email}`);
+                        console.log("✅ Existing User Logged In: ${user.email}");
                     }
+
                     return true;
                 } catch (error) {
-                    console.error("Error saving user to DB:", error);
-                    return false;
+                    console.error("❌ Database error:", error);
+                    return true;
                 }
             }
             return true;
         },
-        async session({ session, token }) {
-            return session;
-        }
     },
     pages: {
         signIn: '/', // Custom sign-in page (the modal on index)
