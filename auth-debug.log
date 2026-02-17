@@ -20,3 +20,15 @@
 [2026-02-17T21:01:59.537Z] User search complete. Found: true
 [2026-02-17T21:01:59.656Z] Existing user logged in.
 [2026-02-17T21:01:59.689Z] Returning true from signIn.
+[2026-02-17T22:01:25.007Z] signIn called for benbraikilyas9@gmail.com, provider: google
+[2026-02-17T22:01:25.017Z] Connecting to DB...
+[2026-02-17T22:01:25.018Z] DB connected.
+[2026-02-17T22:01:25.049Z] User search complete. Found: true
+[2026-02-17T22:01:25.116Z] Existing user logged in.
+[2026-02-17T22:01:25.119Z] Returning true from signIn.
+[2026-02-17T22:05:35.546Z] signIn called for benbraikilyas9@gmail.com, provider: google
+[2026-02-17T22:05:35.549Z] Connecting to DB...
+[2026-02-17T22:05:35.550Z] DB connected.
+[2026-02-17T22:05:35.570Z] User search complete. Found: true
+[2026-02-17T22:05:35.723Z] Existing user logged in.
+[2026-02-17T22:05:35.724Z] Returning true from signIn.

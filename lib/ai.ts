@@ -10,8 +10,8 @@ if (!API_KEY) {
 const genAI = new GoogleGenerativeAI(API_KEY || "mock-key");
 
 const MODELS = {
-    PRIMARY: "gemini-2.0-flash",
-    FALLBACKS: ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"],
+    PRIMARY: "gemini-2.5-flash",
+    FALLBACKS: ["gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-3-flash-preview"],
 };
 
 const SYSTEM_PROMPT = `
