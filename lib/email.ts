@@ -8,9 +8,20 @@ export async function sendWelcomeEmail(to: string, name: string) {
 
     if (!serviceId || !templateId || !publicKey || !privateKey) {
         console.warn("⚠️ EmailJS Credentials missing. Skipping email send.");
+        console.log("Debug Info:");
+        console.log("- Service ID:", serviceId ? "Parsed" : "Missing");
+        console.log("- Template ID:", templateId ? "Parsed" : "Missing");
+        console.log("- Public Key:", publicKey ? "Parsed" : "Missing");
+        console.log("- Private Key:", privateKey ? "Parsed" : "Missing");
         console.log(`[MOCK EMAIL] To: ${to}, Subject: Welcome to Decision Recovery`);
         return;
     }
+
+    console.log("📧 Attempting to send email via EmailJS...");
+    console.log(`- Service ID: ${serviceId?.slice(0, 4)}...`);
+    console.log(`- Template ID: ${templateId?.slice(0, 4)}...`);
+    console.log(`- Public Key: ${publicKey?.slice(0, 4)}...`);
+    console.log(`- Private Key: ${privateKey ? (privateKey === publicKey ? "⚠️ SAME AS PUBLIC KEY (INVALID)" : "Present (Not same as Public)") : "MISSING"}`);
 
     try {
         await emailjs.send(

@@ -7,6 +7,8 @@ export interface IUser extends Document {
     emailVerified?: Date;
     createdAt: Date;
     provider?: string;
+    hasCompletedProgram?: boolean;
+    programCompletedAt?: Date;
 }
 
 const UserSchema: Schema = new Schema({
@@ -19,6 +21,10 @@ const UserSchema: Schema = new Schema({
         required: true,
         unique: true,
     },
+    password: {
+        type: String,
+        select: false,
+    },
     image: {
         type: String,
     },
@@ -28,6 +34,13 @@ const UserSchema: Schema = new Schema({
     provider: {
         type: String,
         default: 'email',
+    },
+    hasCompletedProgram: {
+        type: Boolean,
+        default: false
+    },
+    programCompletedAt: {
+        type: Date
     }
 }, {
     timestamps: true,

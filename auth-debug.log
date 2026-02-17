@@ -1,0 +1,22 @@
+[2026-02-16T22:36:55.617Z] signIn called for alberto@gmail.com, provider: credentials
+[2026-02-16T22:36:55.618Z] Provider not google, returning true.
+[2026-02-16T22:42:41.301Z] signIn called for benbraikilyas9@gmail.com, provider: google
+[2026-02-16T22:42:41.348Z] Connecting to DB...
+[2026-02-16T22:42:41.349Z] DB connected.
+[2026-02-16T22:42:41.385Z] User search complete. Found: true
+[2026-02-16T22:42:41.449Z] Existing user logged in.
+[2026-02-16T22:42:41.450Z] Returning true from signIn.
+[2026-02-16T22:50:52.603Z] signIn called for benbraikilyas9@gmail.com, provider: google
+[2026-02-16T22:50:52.603Z] Connecting to DB...
+[2026-02-16T22:50:52.831Z] DB connected.
+[2026-02-16T22:50:52.915Z] User search complete. Found: true
+[2026-02-16T22:50:52.920Z] Existing user logged in.
+[2026-02-16T22:50:52.920Z] Returning true from signIn.
+[2026-02-17T21:01:10.097Z] signIn called for ildeebo236@gmail.com, provider: credentials
+[2026-02-17T21:01:10.098Z] Provider not google, returning true.
+[2026-02-17T21:01:59.507Z] signIn called for benbraikilyas9@gmail.com, provider: google
+[2026-02-17T21:01:59.520Z] Connecting to DB...
+[2026-02-17T21:01:59.520Z] DB connected.
+[2026-02-17T21:01:59.537Z] User search complete. Found: true
+[2026-02-17T21:01:59.656Z] Existing user logged in.
+[2026-02-17T21:01:59.689Z] Returning true from signIn.

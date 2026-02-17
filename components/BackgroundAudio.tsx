@@ -75,7 +75,7 @@ export default function BackgroundAudio({ url }: BackgroundAudioProps) {
                             disablekb: 1,
                             autoplay: 1
                         }
-                    } as any
+                    } as any // Required for react-player types to accept playerVars
                 }}
                 onError={(e) => console.warn("Audio playback error:", e)}
             />

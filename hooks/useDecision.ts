@@ -4,15 +4,19 @@ interface UseDecisionResult {
     loading: boolean;
     error: string | null;
     decision: string | null;
-    submitAnswers: (answers: string[]) => Promise<void>;
+    alreadyCompletedToday: boolean;
+    isGraduating: boolean;
+    submitAnswers: (answers: string[], questions: string[], dayNumber: number) => Promise<unknown>;
 }
 
 export function useDecision(): UseDecisionResult {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [decision, setDecision] = useState<string | null>(null);
+    const [alreadyCompletedToday, setAlreadyCompletedToday] = useState(false);
+    const [isGraduating, setIsGraduating] = useState(false);
 
-    const submitAnswers = async (answers: string[]) => {
+    const submitAnswers = async (answers: string[], questions: string[], dayNumber: number) => {
         setLoading(true);
         setError(null);
         try {
@@ -22,7 +26,12 @@ export function useDecision(): UseDecisionResult {
             const res = await fetch('/api/decision', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answers, sessionId: storedSessionId }),
+                body: JSON.stringify({
+                    answers,
+                    questions,
+                    dayNumber,
+                    sessionId: storedSessionId
+                }),
             });
 
             const data = await res.json();
@@ -32,15 +41,22 @@ export function useDecision(): UseDecisionResult {
             }
 
             setDecision(data.decision);
+            setAlreadyCompletedToday(data.alreadyCompletedToday || false);
+            setIsGraduating(data.isGraduating || false);
+
             if (data.sessionId) {
                 localStorage.setItem('decision_session_id', data.sessionId);
             }
-        } catch (err: any) {
-            setError(err.message);
+
+            return data;
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'Something went wrong';
+            setError(message);
+            throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    return { loading, error, decision, submitAnswers };
+    return { loading, error, decision, alreadyCompletedToday, isGraduating, submitAnswers };
 }
