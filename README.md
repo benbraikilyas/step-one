@@ -2,6 +2,12 @@
 
 **Step One** is a minimalist decision recovery platform designed to combat decision fatigue and cognitive overload. It forces a "one decision per day" discipline, helping users focus on the single most important action they can take to improve their tomorrow.
 
+## Presentation — Login / Welcome
+
+![Step One — Welcome & Sign In](./assets/login-screenshot.png)
+
+*Welcome screen: Clear Your Mind, Private by Default, Unbiased Safety — with email/password and Google sign-in.*
+
 ## Core Philosophy
 
 In a world of infinite choices, **Step One** limits you to a single, high-impact commitment.
