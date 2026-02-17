@@ -4,7 +4,7 @@
 
 ## Presentation — Login / Welcome
 
-![Step One — Welcome & Sign In](./assets/login-screenshot.png)
+![Step One — Welcome & Sign In](assets/Capture123.PNG)
 
 *Welcome screen: Clear Your Mind, Private by Default, Unbiased Safety — with email/password and Google sign-in.*
 
